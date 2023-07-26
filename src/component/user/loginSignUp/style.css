@@ -10,24 +10,27 @@
 
 .loginEye {
   display: flex;
-  position: absolute;
+  position: fixed;
   margin-left: 17vw;
   cursor: pointer;
 }
 
 .LoginSignUpContainer {
   width: 100vw;
+  height: 100vh;
   max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 
   background-color: rgb(231, 231, 231);
+
 }
 
 .LoginSignUpBox {
   background-color: white;
   width: 25vw;
+  height: 70vh;
   box-sizing: border-box;
   overflow: hidden;
 }
