@@ -33,7 +33,7 @@ import {
         },
       };
   
-      const data = await axios.post("/api/v1/order/new", order, config);
+      const data = await axios.post("https://backend-loot-bazar.vercel.app/api/v1/order/new", order, config);
   
       dispatch({
         type: CREATE_ORDER_SUCCESS,
@@ -58,7 +58,7 @@ import {
         },
       };
   
-      const data = await axios.put(`/api/v1/admin/order/${id}`, order, config);
+      const data = await axios.put(`https://backend-loot-bazar.vercel.app/api/v1/admin/order/${id}`, order, config);
   
       dispatch({
         type: UPDATE_ORDER_SUCCESS,
@@ -77,7 +77,7 @@ import {
     try {
       dispatch({ type: DELETE_ORDER_REQUEST });
   
-      const data = await axios.delete(`/api/v1/admin/order/${id}`);
+      const data = await axios.delete(`https://backend-loot-bazar.vercel.app/api/v1/admin/order/${id}`);
   
       console.log(data)
       dispatch({
@@ -97,7 +97,7 @@ import {
     try {
       dispatch({ type: MY_ORDERS_REQUEST });
   
-      const data = await axios.get("/api/v1/orders/me");
+      const data = await axios.get("https://backend-loot-bazar.vercel.app/api/v1/orders/me");
   
       dispatch({
         type: MY_ORDERS_SUCCESS,
@@ -116,7 +116,7 @@ import {
     try {
       dispatch({ type: ALL_ORDERS_REQUEST });
   
-      const data = await axios.get("/api/v1/admin/orders");
+      const data = await axios.get("https://backend-loot-bazar.vercel.app/api/v1/admin/orders");
   
       dispatch({
         type: ALL_ORDERS_SUCCESS,
@@ -135,7 +135,7 @@ import {
     try {
       dispatch({ type: ORDER_DETAILS_REQUEST });
   
-      const data = await axios.get(`/api/v1/order/${id}`);
+      const data = await axios.get(`https://backend-loot-bazar.vercel.app/api/v1/order/${id}`);
   
       dispatch({
         type: ORDER_DETAILS_SUCCESS,
