@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-import profilePng from "../../../assets/img/profilePng.png";
+import profilePng from "../../../assets/img/profile.png";
 import { styled } from "@mui/material/styles";
 import { Rating } from "@mui/material";
 
