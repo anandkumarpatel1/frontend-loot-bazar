@@ -231,7 +231,9 @@ const LoginSignUp = () => {
                       accept="image/"
                       onChange={registerDataChange}
                     />
+                    
                   </div>
+                  <p className="my-logic-p">image should be less then 1 mb *</p>
                   <input
                     type="submit"
                     value="Register"

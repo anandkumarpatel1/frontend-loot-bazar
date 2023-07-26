@@ -3,7 +3,11 @@
     margin-top: 10vh;
   }
 }
-
+.my-logic-p{
+  font-size: 15px;
+  color : red;
+  
+}
 .hidden{
     visibility: hidden;
 }
