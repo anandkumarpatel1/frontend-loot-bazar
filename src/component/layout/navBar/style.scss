@@ -1,0 +1,105 @@
+.nav-bar {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  padding: 15px 20px;
+  width: 100%;
+  top: 0;
+  height: 70px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  z-index: 20;
+
+  > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    > .logo-nav {
+      margin-left: 10%;
+    }
+
+    > div {
+      cursor: pointer;
+    }
+
+    > .nav-icon > a > svg {
+      margin-right: 10px;
+      color: black;
+      transition: all 0.3s;
+      font-size: 30px;
+
+      &:hover {
+        color: rgb(161, 21, 21);
+        font-size: 40px;
+      }
+    }
+    > div > img {
+      width: 120px;
+    }
+  }
+}
+
+.nav-slider-none {
+  display: none;
+}
+
+.nav-slider {
+  top: 71px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-right: 2px solid rgba(255, 255, 255, 0.4);
+  position: fixed;
+  width: 200px;
+  height: 100vh;
+  animation: left-slider 0.6s ease-out;
+  z-index: 20;
+  > ul {
+    list-style: none;
+
+    > li {
+      animation: top-slider 1s ease-out 0.5s;
+      margin-top: 10px;
+      font-weight: 500;
+      cursor: pointer;
+
+      > a {
+        text-decoration: none;
+        color: black;
+        transition: all 0.3s;
+
+        &:hover {
+          color: rgb(161, 21, 21);
+          font-size: 30px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes left-slider {
+  from {
+    transform: translateX(-500px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes top-slider {
+  from {
+    transform: translateY(-500px);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 800px) {
+  nav > div > .nav-icon {
+    display: none;
+  }
+}

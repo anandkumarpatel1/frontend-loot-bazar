@@ -3,7 +3,8 @@ import "./style.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
-// import { SpeedDial, SpeedDialAction } from "@material-ui/lab";
+import Backdrop from "@material-ui/core/Backdrop";
+
 import { styled } from "@mui/material/styles";
 import SpeedDial from "@mui/material/SpeedDial";
 
@@ -12,7 +13,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonIcon from "@mui/icons-material/Person";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ListAltIcon from "@mui/icons-material/ListAlt";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { logout } from "../../../actions/userAction";
 
@@ -24,17 +25,7 @@ const UserOptions = ({ user }) => {
 
   const { cartItems } = useSelector((state) => state.cart);
 
-  const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
-    position: "absolute",
-    "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
-      bottom: theme.spacing(2),
-      right: theme.spacing(2),
-    },
-    "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
-      top: theme.spacing(0),
-      left: theme.spacing(7),
-    },
-  }));
+
 
   const options = [
     {
@@ -43,9 +34,13 @@ const UserOptions = ({ user }) => {
       func: account,
     },
     {
-      icon: <AddShoppingCartIcon style={{color:cartItems.length  >0 ? "tomato":"unset"}} />,
+      icon: (
+        <ShoppingCartIcon
+          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+        />
+      ),
       name: `Cart(${cartItems.length})`,
-     
+
       func: cart,
     },
     {
@@ -92,10 +87,13 @@ const UserOptions = ({ user }) => {
 
   return (
     <Fragment>
-      <StyledSpeedDial
+      <Backdrop open={open} style={{ zIndex: "10" }} />
+      <SpeedDial
         ariaLabel="SpeedDial tooltip example"
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
+        style={{ zIndex: "11" }}
+        className="speedDial"
         open={open}
         direction="down"
         icon={
@@ -112,10 +110,10 @@ const UserOptions = ({ user }) => {
             icon={item.icon}
             tooltipTitle={item.name}
             onClick={item.func}
-            tooltipOpen={window.innerWidth <= 1000 ? true : false}
+            tooltipOpen={window.innerWidth <= 600 ? true : false}
           />
         ))}
-      </StyledSpeedDial>
+      </SpeedDial>
     </Fragment>
   );
 };

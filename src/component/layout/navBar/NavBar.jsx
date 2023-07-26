@@ -1,30 +1,40 @@
 import React, { useEffect, useState } from "react";
-import "./style.css";
+import "./style.scss";
 import { Link } from "react-router-dom";
 
 // importing assets
-import logoDark from "../../../assets/img/ecommerce-black-transparent-logo.png";
-import logoLight from "../../../assets/img/ecommerce-color-transparent-logo.png";
+import navlogo from "../../../assets/img/logo-nav.png";
 
-// imports from bootstrap
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 
 // imports from react icons
-import { BiSearchAlt2 } from "react-icons/bi";
-import { AiOutlineShopping } from "react-icons/ai";
-import { IoMdContact } from "react-icons/io";
+import { AiOutlineMenu } from "react-icons/ai";
+import { RxCross1 } from "react-icons/rx";
+import { BiHomeCircle } from "react-icons/bi";
+import { BsCart4 } from "react-icons/bs";
+import { LiaTshirtSolid } from "react-icons/lia";
+import { SiMaildotru } from "react-icons/si";
+import { FiSearch } from "react-icons/fi";
+import { BsBag } from "react-icons/bs";
+import { BsPerson } from "react-icons/bs";
 
-import { useSelector } from "react-redux";
 import UserOptions from "../userOptions/UserOptions";
 
-const icon = { fontSize: "1.3em" };
+import { useSelector } from "react-redux";
+
+
 
 const NavBar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
-  const [activeLink, setActiveLink] = useState("");
   const [scrolled, setScrolled] = useState(false);
+  const [menu, setMenu] = useState(false);
+
+  const toggleMenu = () => {
+    if (menu === false) {
+      setMenu(true);
+    } else {
+      setMenu(false);
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => {
@@ -40,98 +50,55 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   return (
-    <Navbar expand="lg" className={scrolled ? "scrolled my-nav" : "my-nav"}>
-      <Container className="navBar">
-        <Link to="/">
-          <img src={scrolled ? logoLight : logoDark} className="logo" alt="" />
-        </Link>
+    <>
+    <nav className="nav-bar">
+      <div>
+        <div onClick={toggleMenu}>
+          {menu === false ? <AiOutlineMenu /> : <RxCross1 />}
+        </div>
+        <div className="logo-nav">
+          <img src={navlogo} alt="" />
+        </div>
+        <div className="nav-icon">
+          <Link to="/">
+            <BiHomeCircle />
+          </Link>
+          <Link to="/cart">
+            <BsCart4 />
+          </Link>
+          <Link to="/products">
+            <LiaTshirtSolid />
+          </Link>
+          <Link to="/contact">
+            <SiMaildotru />
+          </Link>
+          <Link to="/search">
+            <FiSearch />
+          </Link>
+          <Link to="/orders">
+            <BsBag />
+          </Link>
+          <Link to={isAuthenticated ? "/account" : "/login"}>
+            <BsPerson />
+          </Link>
+        </div>
+      </div>
+    </nav>
+    <div className={menu === false ? 'nav-slider-none' : 'nav-slider'}>
+      <ul>
+        <li ><Link onClick={toggleMenu} to='/'>Home</Link></li>
+        <li ><Link onClick={toggleMenu} to={isAuthenticated ? '/account' : '/login'}>{isAuthenticated ? user.name : 'Login'}</Link></li>
+        <li ><Link onClick={toggleMenu} to='/search'>Search</Link></li>
+        <li ><Link onClick={toggleMenu} to='/cart'>Cart</Link></li>
+        <li ><Link onClick={toggleMenu} to='/orders'>orders</Link></li>
+        <li ><Link onClick={toggleMenu} to='/products'>Products</Link></li>
+        <li ><Link onClick={toggleMenu} to='/about'>About</Link></li>
+      </ul>
+    </div>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto m-5 ">
-            <Link
-              to="/"
-              className={
-                activeLink === "home"
-                  ? "active navbar-link link"
-                  : "navbar-link link"
-              }
-              onClick={() => setActiveLink("home")}
-            >
-              Home
-            </Link>
-            <Link
-              to="/products"
-              className={
-                activeLink === "addTask"
-                  ? "active navbar-link link"
-                  : "navbar-link link"
-              }
-              onClick={() => setActiveLink("addTask")}
-            >
-              Products
-            </Link>
-
-            <Link
-              to="/contact"
-              className={
-                activeLink === "task"
-                  ? "active navbar-link link"
-                  : "navbar-link link"
-              }
-              onClick={() => setActiveLink("task")}
-            >
-              Contact
-            </Link>
-            <Link
-              to="/about"
-              className={
-                activeLink === "contact"
-                  ? "active navbar-link link"
-                  : "navbar-link link"
-              }
-              onClick={() => setActiveLink("contact")}
-            >
-              About
-            </Link>
-
-            <div className="icon">
-              <Link to="/search" className="link">
-                <BiSearchAlt2
-                  style={icon}
-                  color={activeLink === "search" ? "red" : ""}
-                  onClick={() => setActiveLink("search")}
-                />
-              </Link>
-
-              <Link to="/orders" className="link">
-                <AiOutlineShopping
-                  style={icon}
-                  color={activeLink === "orders" ? "red" : ""}
-                  onClick={() => setActiveLink("orders")}
-                />
-              </Link>
-
-              <div className="profile-icon">
-                {isAuthenticated ? (
-                  <UserOptions user={user} />
-                ) : (
-                  <>
-                    <Link to="/login" className="link">
-                      <IoMdContact
-                        style={icon}
-                        color={activeLink === "profile" ? "red" : ""}
-                        onClick={() => setActiveLink("profile")}
-                      />
-                    </Link>{" "}
-                  </>
-                )}
-              </div>
-            </div>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    {isAuthenticated ? <UserOptions user={user} /> : ''}
+    
+    </>
   );
 };
 

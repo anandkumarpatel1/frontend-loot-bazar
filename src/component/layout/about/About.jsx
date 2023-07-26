@@ -1,53 +1,62 @@
-import React from 'react'
-import "./style.css"
-import InstagramIcon from '@mui/icons-material/Instagram';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import { Avatar, Button, Typography } from '@mui/material';
+import React from "react";
+import "./contact.scss";
+import niru from "../../../assets/img/niru.jpg";
+import anand from "../../../assets/img/anand.jpg";
+import { BsInstagram } from "react-icons/bs";
+import { AiOutlineGithub, AiFillLinkedin } from "react-icons/ai";
 
 const About = () => {
-    const visitInstagram = () => {
-        window.location = "https://www.instagram.com/sinha_niranjankumar/";
-      };
   return (
-    <div className="aboutSection">
-    <div></div>
-    <div className="aboutSectionGradient"></div>
-    <div className="aboutSectionContainer">
-      <Typography component="h1">About Us</Typography>
-
+    <div className="contact">
       <div>
+        <img src={niru} alt={niru} />
+        <p>Niranjan Kumar</p>
+        <p>Pursing B.tech from (BCE)</p>
+        <p>Code debugger</p>
         <div>
-          <Avatar
-            style={{ width: "10vmax", height: "10vmax", margin: "2vmax 0" }}
-            src=""
-            alt="Founder"
-          />
-          <Typography>Niranjan Kumar </Typography>
-          <Button onClick={visitInstagram} color="primary">
-            Visit Instagram
-          </Button>
-          <span>
-            This is a sample wesbite made by @sinha_niranjan. Only with the
-            purpose to teach MERN Stack on the channel 6 Pack Programmer
-          </span>
-        </div>
-        <div className="aboutSectionContainer2">
-          <Typography component="h2">Our Brands</Typography>
+  <a
+    href="https://www.instagram.com/sinha_niranjankumar/"
+    target="_blank"
+  >
+    {" "}
+    <BsInstagram />
+  </a>
+  <a
+    href="https://www.linkedin.com/in/niranjan-kumar-015675238/"
+    target="_blank"
+  >
+    <AiFillLinkedin />{" "}
+  </a>
+  <a href="https://github.com/sinha-niranjan" target="_blank">
+    <AiOutlineGithub />
+  </a>
+</div>
+      </div>
+      <div>
+        <img src={anand} alt={niru} />
+        <p>Anand Kumar</p>
+        <p>Pursing Dimploma from Govt. Poly. Gaya</p>
+        <p>Full stack developer</p>
+        <div>
           <a
-            href=" "
-            target="blank"
+            href="https://www.instagram.com/babu_.patel_._/"
+            target="_blank"
           >
-            <YouTubeIcon className="youtubeSvgIcon" />
+            <BsInstagram />
           </a>
-
-          <a href="https://instagram.com/sinha_niranjankumar" target="blank">
-            <InstagramIcon className="instagramSvgIcon" />
+          <a
+            href="https://www.linkedin.com/in/uchiha-obito/"
+            target="_blank"
+          >
+            <AiFillLinkedin />{" "}
+          </a>
+          <a href="https://github.com/anandkumarpatel1" target="_blank">
+            <AiOutlineGithub />
           </a>
         </div>
       </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;
