@@ -29,7 +29,7 @@ import {
   
       const config = {
         headers: {
-          "content-Type": "application/json",
+          "content-Type": "application/json", withCredentials: true 
         },
       };
   
@@ -54,7 +54,7 @@ import {
   
       const config = {
         headers: {
-          "content-Type": "application/json",
+          "content-Type": "application/json", withCredentials: true 
         },
       };
   
@@ -77,7 +77,7 @@ import {
     try {
       dispatch({ type: DELETE_ORDER_REQUEST });
   
-      const data = await axios.delete(`https://backend-loot-bazar.vercel.app/api/v1/admin/order/${id}`);
+      const data = await axios.delete(`https://backend-loot-bazar.vercel.app/api/v1/admin/order/${id}`, { withCredentials: true });
   
       console.log(data)
       dispatch({
@@ -97,7 +97,7 @@ import {
     try {
       dispatch({ type: MY_ORDERS_REQUEST });
   
-      const data = await axios.get("https://backend-loot-bazar.vercel.app/api/v1/orders/me");
+      const data = await axios.get("https://backend-loot-bazar.vercel.app/api/v1/orders/me", { withCredentials: true });
   
       dispatch({
         type: MY_ORDERS_SUCCESS,
@@ -116,7 +116,7 @@ import {
     try {
       dispatch({ type: ALL_ORDERS_REQUEST });
   
-      const data = await axios.get("https://backend-loot-bazar.vercel.app/api/v1/admin/orders");
+      const data = await axios.get("https://backend-loot-bazar.vercel.app/api/v1/admin/orders", { withCredentials: true });
   
       dispatch({
         type: ALL_ORDERS_SUCCESS,
@@ -135,7 +135,7 @@ import {
     try {
       dispatch({ type: ORDER_DETAILS_REQUEST });
   
-      const data = await axios.get(`https://backend-loot-bazar.vercel.app/api/v1/order/${id}`);
+      const data = await axios.get(`https://backend-loot-bazar.vercel.app/api/v1/order/${id}`, { withCredentials: true });
   
       dispatch({
         type: ORDER_DETAILS_SUCCESS,
