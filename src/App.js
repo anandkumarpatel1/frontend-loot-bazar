@@ -1,5 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
 import NavBar from "./component/layout/navBar/NavBar";
 import Footer from "./component/layout/footer/Footer";
 import Home from "./component/home/Home";
@@ -73,6 +74,7 @@ function App() {
 
  
   return (
+    <>
     <Router>
       <NavBar />
 
@@ -396,6 +398,8 @@ function App() {
 
       <Footer />
     </Router>
+    <Analytics />
+    </>
   );
 }
 
