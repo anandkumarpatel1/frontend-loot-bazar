@@ -62,7 +62,7 @@ const Payment = () => {
         },
       };
       const { data } = await axios.post(
-        "/api/v1/payment/process",
+        "https://backend-loot-bazar.vercel.app/api/v1/payment/process",
         paymentData,
         config
       );

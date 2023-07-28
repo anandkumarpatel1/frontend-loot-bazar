@@ -54,7 +54,9 @@ function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
-    const { data } = await axios.get("https://frontend-mern-ecommerce.vercel.app/api/v1/stripeapikey");
+    const { data } = await axios.get(
+      "https://backend-loot-bazar.vercel.app/api/v1/stripeapikey"
+    );
 
     setStripeApiKey(data.stripeApiKey);
   }
@@ -69,109 +71,180 @@ function App() {
     store.dispatch(loadUser());
     getStripeApiKey();
   }, []);
+  
 
   // window.addEventListener("contextmenu", (e) => e.preventDefault());
 
- 
   return (
     <>
-    <Router>
-      <NavBar />
+      <Router>
+        <NavBar />
 
-      <Routes>
-        {/*        *************************        UNPROTECTED ROUTES        ********************             */}
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/product/:id" element={<ProductDetails />} />
-        <Route exact path="/products" element={<Products />} />
-        <Route exact path="/products/:keyword" element={<Products />} />
-        <Route exact path="/search" element={<Search />} />
-        <Route exact path="/cart" element={<Cart />} />
-        <Route exact path="/login" element={<LoginSignUp />} />
-        <Route exact path="/password/forgot" element={<ForgotPassword />} />
-        <Route
-          exact
-          path="/password/reset/:token"
-          element={<ResetPassword />}
-        />
-
-        <Route exact path="/contact" element={<Contact />} />
-
-        <Route exact path="/about" element={<About />} />
-
-        {/*          *********************         PROTECTED ROUTES         *********************          */}
-        <Route
-          exact
-          path="/account"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>{isAuthenticated ? <Profile /> : <LoginSignUp />}</>
-            )
-          }
-        />
-
-        <Route
-          exact
-          path="/me/update"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>{isAuthenticated ? <UpdateProfile /> : <LoginSignUp />}</>
-            )
-          }
-        />
-
-        <Route
-          exact
-          path="/password/update"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>{isAuthenticated ? <UpdatePassword /> : <LoginSignUp />}</>
-            )
-          }
-        />
-
-        <Route
-          exact
-          path="/login/shipping"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>{isAuthenticated ? <Shipping /> : <LoginSignUp />}</>
-            )
-          }
-        />
-
-        <Route
-          exact
-          path="/order/confirm"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>{isAuthenticated ? <ConfirmOrder /> : <LoginSignUp />}</>
-            )
-          }
-        />
-
-        {stripeApiKey && (
+        <Routes>
+          {/*        *************************        UNPROTECTED ROUTES        ********************             */}
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/product/:id" element={<ProductDetails />} />
+          <Route exact path="/products" element={<Products />} />
+          <Route exact path="/products/:keyword" element={<Products />} />
+          <Route exact path="/search" element={<Search />} />
+          <Route exact path="/cart" element={<Cart />} />
+          <Route exact path="/login" element={<LoginSignUp />} />
+          <Route exact path="/password/forgot" element={<ForgotPassword />} />
           <Route
             exact
-            path="/process/payment"
+            path="/password/reset/:token"
+            element={<ResetPassword />}
+          />
+
+          <Route exact path="/contact" element={<Contact />} />
+
+          <Route exact path="/about" element={<About />} />
+
+          {/*          *********************         PROTECTED ROUTES         *********************          */}
+          <Route
+            exact
+            path="/account"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>{isAuthenticated ? <Profile /> : <LoginSignUp />}</>
+              )
+            }
+          />
+
+          <Route
+            exact
+            path="/me/update"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>{isAuthenticated ? <UpdateProfile /> : <LoginSignUp />}</>
+              )
+            }
+          />
+
+          <Route
+            exact
+            path="/password/update"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>{isAuthenticated ? <UpdatePassword /> : <LoginSignUp />}</>
+              )
+            }
+          />
+
+          <Route
+            exact
+            path="/login/shipping"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>{isAuthenticated ? <Shipping /> : <LoginSignUp />}</>
+              )
+            }
+          />
+
+          <Route
+            exact
+            path="/order/confirm"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>{isAuthenticated ? <ConfirmOrder /> : <LoginSignUp />}</>
+              )
+            }
+          />
+
+
+          {stripeApiKey && (
+            <Route
+              exact
+              path="/process/payment"
+              element={
+                loading ? (
+                  <Loader />
+                ) : (
+                  <>
+                    {isAuthenticated ? (
+                      <Elements stripe={loadStripe(stripeApiKey)}>
+                        <Payment />{" "}
+                      </Elements>
+
+                    ) : (
+                      <LoginSignUp />
+                    )}
+                  </>
+                )
+              }
+            />
+          )}
+
+          <Route
+            exact
+            path="/success"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>{isAuthenticated ? <OrderSuccess /> : <LoginSignUp />}</>
+              )
+            }
+          />
+
+          <Route
+            exact
+            path="/orders"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>{isAuthenticated ? <MyOrders /> : <LoginSignUp />}</>
+              )
+            }
+          />
+
+          <Route
+            exact
+            path="/order/:id"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>{isAuthenticated ? <OrderDetails /> : <LoginSignUp />}</>
+              )
+            }
+          />
+
+          <Route
+            exact
+            path="/order/confirm"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>{isAuthenticated ? <ConfirmOrder /> : <LoginSignUp />}</>
+              )
+            }
+          />
+
+          {/*          ****************************          ADMIN PROTECTED ROUTES       ****************************         */}
+
+          <Route
+            exact
+            path="/admin/dashboard"
             element={
               loading ? (
                 <Loader />
               ) : (
                 <>
-                  {isAuthenticated ? (
-                    <Elements stripe={loadStripe(stripeApiKey)}>
-                      <Payment />{" "}
-                    </Elements>
+                  {isAuthenticated && user && user.role === "admin" ? (
+                    <Dashboard />
                   ) : (
                     <LoginSignUp />
                   )}
@@ -179,226 +252,157 @@ function App() {
               )
             }
           />
-        )}
 
-        <Route
-          exact
-          path="/success"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>{isAuthenticated ? <OrderSuccess /> : <LoginSignUp />}</>
-            )
-          }
-        />
+          <Route
+            exact
+            path="/admin/products"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {isAuthenticated && user && user.role === "admin" ? (
+                    <ProductList />
+                  ) : (
+                    <LoginSignUp />
+                  )}
+                </>
+              )
+            }
+          />
 
-        <Route
-          exact
-          path="/orders"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>{isAuthenticated ? <MyOrders /> : <LoginSignUp />}</>
-            )
-          }
-        />
+          <Route
+            exact
+            path="/admin/product"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {isAuthenticated && user && user.role === "admin" ? (
+                    <CreateProduct />
+                  ) : (
+                    <LoginSignUp />
+                  )}
+                </>
+              )
+            }
+          />
 
-        <Route
-          exact
-          path="/order/:id"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>{isAuthenticated ? <OrderDetails /> : <LoginSignUp />}</>
-            )
-          }
-        />
+          <Route
+            exact
+            path="/admin/product/:id"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {isAuthenticated && user && user.role === "admin" ? (
+                    <UpdateProduct />
+                  ) : (
+                    <LoginSignUp />
+                  )}
+                </>
+              )
+            }
+          />
 
-        <Route
-          exact
-          path="/order/confirm"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>{isAuthenticated ? <ConfirmOrder /> : <LoginSignUp />}</>
-            )
-          }
-        />
+          <Route
+            exact
+            path="/admin/orders"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {isAuthenticated && user.role === "admin" ? (
+                    <OrderList />
+                  ) : (
+                    <LoginSignUp />
+                  )}
+                </>
+              )
+            }
+          />
 
-        {/*          ****************************          ADMIN PROTECTED ROUTES       ****************************         */}
+          <Route
+            exact
+            path="/admin/order/:id"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {isAuthenticated && user.role === "admin" ? (
+                    <ProcessOrder />
+                  ) : (
+                    <LoginSignUp />
+                  )}
+                </>
+              )
+            }
+          />
 
-        <Route
-          exact
-          path="/admin/dashboard"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>
-                {isAuthenticated && user &&  user.role === "admin" ? (
-                  <Dashboard />
-                ) : (
-                  <LoginSignUp />
-                )}
-              </>
-            )
-          }
-        />
+          <Route
+            exact
+            path="/admin/users"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {isAuthenticated && user.role === "admin" ? (
+                    <UserList />
+                  ) : (
+                    <LoginSignUp />
+                  )}
+                </>
+              )
+            }
+          />
 
-        <Route
-          exact
-          path="/admin/products"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>
-                {isAuthenticated &&user &&  user.role === "admin" ? (
-                  <ProductList />
-                ) : (
-                  <LoginSignUp />
-                )}
-              </>
-            )
-          }
-        />
+          <Route
+            exact
+            path="/admin/user/:id"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {isAuthenticated && user.role === "admin" ? (
+                    <UpdateUser />
+                  ) : (
+                    <LoginSignUp />
+                  )}
+                </>
+              )
+            }
+          />
 
-        <Route
-          exact
-          path="/admin/product"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>
-                {isAuthenticated &&user && user.role === "admin" ? (
-                  <CreateProduct />
-                ) : (
-                  <LoginSignUp />
-                )}
-              </>
-            )
-          }
-        />
+          <Route
+            exact
+            path="/admin/reviews"
+            element={
+              loading ? (
+                <Loader />
+              ) : (
+                <>
+                  {isAuthenticated && user.role === "admin" ? (
+                    <ProductReviews />
+                  ) : (
+                    <LoginSignUp />
+                  )}
+                </>
+              )
+            }
+          />
 
-        <Route
-          exact
-          path="/admin/product/:id"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>
-                {isAuthenticated && user && user.role === "admin" ? (
-                  <UpdateProduct />
-                ) : (
-                  <LoginSignUp />
-                )}
-              </>
-            )
-          }
-        />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
 
-        <Route
-          exact
-          path="/admin/orders"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>
-                {isAuthenticated && user.role === "admin" ? (
-                  <OrderList />
-                ) : (
-                  <LoginSignUp />
-                )}
-              </>
-            )
-          }
-        />
-
-        <Route
-          exact
-          path="/admin/order/:id"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>
-                {isAuthenticated && user.role === "admin" ? (
-                  <ProcessOrder />
-                ) : (
-                  <LoginSignUp />
-                )}
-              </>
-            )
-          }
-        />
-
-        <Route
-          exact
-          path="/admin/users"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>
-                {isAuthenticated && user.role === "admin" ? (
-                  <UserList />
-                ) : (
-                  <LoginSignUp />
-                )}
-              </>
-            )
-          }
-        />
-
-        <Route
-          exact
-          path="/admin/user/:id"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>
-                {isAuthenticated && user.role === "admin" ? (
-                  <UpdateUser />
-                ) : (
-                  <LoginSignUp />
-                )}
-              </>
-            )
-          }
-        />
-
-        <Route
-          exact
-          path="/admin/reviews"
-          element={
-            loading ? (
-              <Loader />
-            ) : (
-              <>
-                {isAuthenticated && user.role === "admin" ? (
-                  <ProductReviews />
-                ) : (
-                  <LoginSignUp />
-                )}
-              </>
-            )
-          }
-        />
-
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-
-      <Footer />
-    </Router>
-    <Analytics />
+        <Footer />
+      </Router>
+      <Analytics />
     </>
   );
 }
