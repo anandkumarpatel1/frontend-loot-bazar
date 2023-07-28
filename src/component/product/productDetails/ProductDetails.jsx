@@ -5,7 +5,7 @@ import "./style.css";
 
 import Loader from "../../layout/loader/Loader";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useAlert } from "react-alert";
 
@@ -28,18 +28,17 @@ import {
   Button,
   Rating,
 } from "@mui/material";
-import styled from "@emotion/styled";
+
 import { NEW_REVIEW_RESET } from "../../../constants/productConstants";
 
-const StyledRating = styled(Rating)({
-  color: "tomato"
-});
+
 
 const ProductDetails = () => {
   let { id } = useParams();
 
   const dispatch = useDispatch();
   const alert = useAlert();
+  const navigate = useNavigate();
   const params = useParams();
 
   const { product, loading, error } = useSelector(
@@ -49,6 +48,9 @@ const ProductDetails = () => {
   const { success, error: reviewError } = useSelector(
     (state) => state.newReview
   );
+
+  const stock = product.stock;
+
 
   const [quantity, setQuantity] = useState(1);
   const [open, setOpen] = useState(false);
@@ -72,6 +74,13 @@ const ProductDetails = () => {
   const addToCartHandler = () => {
     dispatch(addItemsToCart(params.id, quantity));
     alert.success("Item added to cart");
+  };
+
+  const buyNowHandler = () => {
+    dispatch(addItemsToCart(id, quantity, stock));
+    console.log(stock);
+    alert.success("Item added to cart");
+    navigate('/cart')
   };
 
   const options = {
@@ -120,9 +129,9 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={`${product.name} -- Ecommerce`} />
-          <div className="ProductDetails">
-            <div>
+          <MetaData title={`E-Thaila - ${product.name}`} />
+          <div className="ProductDetails" key={product.id}>
+            <div className="my-image-cont">
               <Carousel>
                 {product.images &&
                   product.images.map((item, i) => (
@@ -142,9 +151,8 @@ const ProductDetails = () => {
                 <p>Product # {product._id}</p>
               </div>
               <div className="detailsBlock-2">
-                <StyledRating {...options} />
+                <Rating {...options} />
                 <span className="detailsBlock-2-span">
-                  {" "}
                   ({product.numOfReviews} Reviews)
                 </span>
               </div>
@@ -155,7 +163,7 @@ const ProductDetails = () => {
                     <button onClick={decreaseQuantity}>-</button>
                     <input
                       readOnly
-                      type="text"
+                      type="number"
                       value={quantity}
                       className="my-input"
                     />
@@ -171,56 +179,51 @@ const ProductDetails = () => {
 
                 <p>
                   Status:{" "}
-                  <b className={product.stock <= 0 ? "redColor" : "greenColor"}>
-                
-                    {product.stock <= 0 ? "OutOfStock" : "InStock"}
+                  <b className={product.stock < 1 ? "redColor" : "greenColor"}>
+                    {product.stock < 1 ? "OutOfStock" : "InStock"} (
+                    {product.stock})
                   </b>
                 </p>
+                <button className="my-btn-buy" onClick={buyNowHandler}>Buy Now</button>
               </div>
 
               <div className="detailsBlock-4">
                 Description : <p>{product.description}</p>
               </div>
 
-              <button className="submitReview" onClick={submitReviewToggle}>
+              <button onClick={submitReviewToggle} className="submitReview">
                 Submit Review
               </button>
             </div>
           </div>
           <h3 className="reviewsHeading">REVIEW</h3>
+
           <Dialog
             aria-labelledby="simple-dialog-title"
             open={open}
             onClose={submitReviewToggle}
           >
-            <DialogTitle> Submit Review</DialogTitle>
-            <DialogContent className="submitDialog">
+            <DialogTitle>Submit review</DialogTitle>
+
+            <DialogContent>
               <Rating
                 onChange={(e) => setRating(e.target.value)}
                 value={rating}
                 size="large"
-              />
+              ></Rating>
               <textarea
                 className="submitDialogTextArea"
-                cols="30"
-                rows="5"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
+                cols="30"
+                rows="5"
               ></textarea>
             </DialogContent>
             <DialogActions>
-              <Button
-                variant="outlined"
-                onClick={submitReviewToggle}
-                color="error"
-              >
+              <Button onClick={submitReviewToggle} color="secondary">
                 Cancel
               </Button>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={reviewSubmitHandler}
-              >
+              <Button onClick={reviewSubmitHandler} color="primary">
                 Submit
               </Button>
             </DialogActions>
@@ -229,9 +232,7 @@ const ProductDetails = () => {
           {product.reviews && product.reviews[0] ? (
             <div className="reviews">
               {product.reviews &&
-                product.reviews.map((review, i) => (
-                  <ReviewCard key={i} review={review} />
-                ))}
+                product.reviews.map((review) => <ReviewCard review={review} />)}
             </div>
           ) : (
             <p className="noReviews"> No Reviews Yet</p>
