@@ -2,6 +2,14 @@
     margin-top: 15vh;
 }
 
+.my-payment-radio{
+  width: 100px;
+  height: 2em;
+  background-color: tomato;
+  cursor: pointer;
+}
+
+
 .paymentContainer {
     display: grid;
     place-items: center;

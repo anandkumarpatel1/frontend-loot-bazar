@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CheckoutSteps from "../checkoutStep/CheckoutSteps";
 import "./style.css";
@@ -30,6 +30,8 @@ const Payment = () => {
   const stripe = useStripe();
   const elements = useElements();
   const payBtn = useRef(null);
+
+  const [cashOn, setCashOn] = useState("cod")
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
 
@@ -68,6 +70,11 @@ const Payment = () => {
       );
 
       const client_secret = data.client_secret;
+
+      if(cashOn === 'cod'){
+        dispatch(createOrder(order))
+        navigate('/success')
+      }
 
       if (!stripe || !elements) return;
 
@@ -126,21 +133,12 @@ const Payment = () => {
           <form className="paymentForm" onSubmit={(e) => submitHandler(e)}>
             <Typography>Card Info</Typography>
             <div>
-              <CreditCardIcon />
-              <CardNumberElement className="paymentInput" />
+              <input type="radio"  className="my-payment-radio"/>
+              cash on delivery (COD)
             </div>
-            <div>
-              <EventIcon />
-              <CardExpiryElement className="paymentInput" />
-            </div>
-            <div>
-              <VpnKeyIcon />
-              <CardCvcElement className="paymentInput" />
-            </div>
-
             <input
               type="submit"
-              value={`pay - ₹${orderInfo && orderInfo.totalPrice}`}
+              value={`COD - ₹${orderInfo && orderInfo.totalPrice}`}
               ref={payBtn}
               className="paymentFormBtn"
             />

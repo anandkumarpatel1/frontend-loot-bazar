@@ -58,6 +58,8 @@ function App() {
       "https://backend-loot-bazar.vercel.app/api/v1/stripeapikey"
     );
 
+    console.log(data)
+
     setStripeApiKey(data.stripeApiKey);
   }
 
