@@ -51,17 +51,7 @@ import NotFound from "./component/layout/notFound/NotFound";
 function App() {
   const { loading, isAuthenticated, user } = useSelector((state) => state.user);
 
-  const [stripeApiKey, setStripeApiKey] = useState("");
-
-  async function getStripeApiKey() {
-    const { data } = await axios.get(
-      "https://backend-loot-bazar.vercel.app/api/v1/stripeapikey"
-    );
-
-    console.log(data)
-
-    setStripeApiKey(data.stripeApiKey);
-  }
+  const stripeApiKey = "pk_live_51NMXsLSD1gcvrjzgyPqM3V25h44EWCIWO0AwIBum64nhL1oK1gaimR7OIsqoblg8GmzyoUk2jcvXxzcqMZfyfjnK00d0Aw88ck"
 
   React.useEffect(() => {
     webfont.load({
@@ -71,7 +61,6 @@ function App() {
     });
 
     store.dispatch(loadUser());
-    getStripeApiKey();
   }, []);
   
 
