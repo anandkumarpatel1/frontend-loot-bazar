@@ -129,7 +129,7 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={`E-Thaila - ${product.name}`} />
+          <MetaData title={`Loot-Bazar - ${product?.name}`} desc={`${product?.name}, ${product?.category}, ${product?.description}, ${product?.price}, tshirt, costum tshirt `} keyword={`${product?.name}, ${product?.category}, ${product?.description}, ${product?.price}, tshirt, costum tshirt `} />
           <div className="ProductDetails" key={product.id}>
             <div className="my-image-cont">
               <Carousel>
