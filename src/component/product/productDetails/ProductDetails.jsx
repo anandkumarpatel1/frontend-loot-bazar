@@ -185,7 +185,7 @@ const ProductDetails = () => {
                     {product.stock})
                   </b>
                 </p>
-                <a href="https://wa.me/+916203086263?text=I'm%20interested%20in%20your%20product%20for%20sale" target="_blank">
+                <a href="https://wa.me/+916203086263?text=I'm%20interested%20in%20buy%20your%20product" target="_blank">
                 <div className="my-icon-query"> <BsWhatsapp /> For Custom Design And Any Product Related Query</div></a>
                 <button className="my-btn-buy" onClick={buyNowHandler}>Buy Now</button>
               </div>
