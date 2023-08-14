@@ -15,7 +15,6 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
 
   const increaseQuantity = (id, quantity, stock) => {
     const newQty = quantity + 1;
@@ -40,7 +39,7 @@ const Cart = () => {
   }
   return (
     <Fragment>
-      <MetaData title={`${user.name} - Cart`} />
+      <MetaData title={`Loot Bazar Cart`} />
       {cartItems.length === 0 ? (
         <div className="emptyCart">
           <RemoveShoppingCartIcon />
