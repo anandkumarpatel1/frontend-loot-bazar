@@ -9,11 +9,13 @@ import {
 } from "../../../actions/cartAction";
 import { Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import MetaData from "../../layout/metaData/MetaData";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.user);
 
   const increaseQuantity = (id, quantity, stock) => {
     const newQty = quantity + 1;
@@ -38,6 +40,7 @@ const Cart = () => {
   }
   return (
     <Fragment>
+      <MetaData title={`${user.name} - Cart`} />
       {cartItems.length === 0 ? (
         <div className="emptyCart">
           <RemoveShoppingCartIcon />
