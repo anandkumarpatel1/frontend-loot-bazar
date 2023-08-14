@@ -34,9 +34,9 @@ const Home = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="ECOMMERCE" />
+          <MetaData title="Loot Bazar - Home" desc={"Best Online Shopping website for custom tshirts, special orders for colleges tshirt"} keyword={"loot bazar, custom tshirt, gp gaya tshirt, printed tshirt, online shopping, gp gaya, bihar polythenic, customiasble tshirt, computer science tshirt, civil tshirt, electronics tshirt, mechnical tshirt"}/>
           <div className="banner">
-            <p>Welcome to Ecommerce</p>
+            <p>Welcome to Loot Bazar</p>
             <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
             <div className="glow-on-hover">
