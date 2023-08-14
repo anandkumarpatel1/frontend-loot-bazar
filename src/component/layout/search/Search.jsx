@@ -24,7 +24,7 @@ const Search = () => {
   }, []);
   return (
     <>
-      <MetaData title="Search Products -- Ecommerce" />
+      <MetaData title="Loot Bazar - Search" />
       <form  className="searchBox" onSubmit={searchSubmitHandler}>
         <div className="searchBar">
           <input
