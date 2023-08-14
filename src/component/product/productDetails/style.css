@@ -7,6 +7,18 @@
     box-sizing: border-box;
     display: flex;
   }
+
+ a{
+    text-decoration: none !important;
+  }
+
+  .my-icon-query {
+    margin: 10px 0px;
+    color: #000000;
+  }
+  .my-icon-query svg{
+    font-size: 25px;
+  }
   
   .ProductDetails > div {
     width: 100%;
