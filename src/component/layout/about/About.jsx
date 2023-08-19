@@ -5,6 +5,7 @@ import anand from "../../../assets/img/anand.jpg";
 import { BsInstagram } from "react-icons/bs";
 import { AiOutlineGithub, AiFillLinkedin } from "react-icons/ai";
 import MetaData from "../metaData/MetaData";
+import group from '../../../assets/img/group.jpg'
 
 const About = () => {
   return (
@@ -53,6 +54,21 @@ const About = () => {
             </a>
           </div>
         </div>
+      </div>
+      <div className="group">
+        <img src={group} alt={group} />
+        <p>Our Team Members</p>
+        <ul>
+          <li>Anand</li>
+          <li>Anurag</li>
+          <li>Sandeep</li>
+          <li>Aman</li>
+          <li>Ritesh</li>
+          <li>Gaurav</li>
+          <li>Pawan</li>
+          <li>Amarjeet</li>
+          <li>Gautam</li>
+        </ul>
       </div>
     </>
   );
