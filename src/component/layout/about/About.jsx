@@ -64,7 +64,6 @@ const About = () => {
           <li>Sandeep</li>
           <li>Aman</li>
           <li>Ritesh</li>
-          <li>Gaurav</li>
           <li>Pawan</li>
           <li>Amarjeet</li>
           <li>Gautam</li>
