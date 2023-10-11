@@ -64,7 +64,7 @@ function App() {
   }, []);
   
 
-  // window.addEventListener("contextmenu", (e) => e.preventDefault());
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
 
   return (
     <>
